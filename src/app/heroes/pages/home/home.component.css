@@ -1,3 +1,13 @@
 .container{
     margin: 10px;
 }
+
+.logo{
+    width: 150px;
+    height: 50px;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+}

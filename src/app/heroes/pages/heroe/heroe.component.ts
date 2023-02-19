@@ -15,16 +15,24 @@ constructor(private activateRoute: ActivatedRoute, private heroesS: HeroesServic
   private router: Router){}
 
 
-@Input('valor') heroe!: DataHeroes;
+@Input('valor') heroe!: any;
 
   // datosHeroe(valor: string){
   //     this.heroesS.getHeroesPorId(valor).subscribe((data) => this.heroe = data)
 
   // }
 
+
  
   ngOnInit(): void {
-    this.activateRoute.params.pipe(switchMap(({id}) => this.heroesS.getHeroesPorId(id))).subscribe(heroe => this.heroe = heroe);
+
+     this.activateRoute.params.subscribe(({id}) =>{
+      
+      this.heroesS.getHeroesPorId(id)
+      this.heroe = this.heroesS.getHeroesPorIdData(id)
+     
+      
+     })
 
   }
 

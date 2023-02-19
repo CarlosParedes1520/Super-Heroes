@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DataHeroes, Publisher } from '../../interfaces/heroes.interface';
 import { HeroesService } from '../../services/heroes.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { ConfirmarComponent } from '../../components/confirmar/confirmar.compone
 })
 export class AgregarComponent implements OnInit{
 
-
+  @ViewChild('name') name: ElementRef | undefined;
 
   heroe: DataHeroes={
     superhero: '',
@@ -43,15 +43,14 @@ export class AgregarComponent implements OnInit{
     }
 
     if (this.heroe.id) {
-      this.heroesService.actualizarHeroe(this.heroe).subscribe((heroe)=> this.openSnackBar(`se ha actualizado el heroe ${this.heroe.alter_ego}`))
+      this.heroesService.actualizarHeroe(this.heroe)
+      this.heroesService.getHeroes();
+      this.router.navigateByUrl('/');
     } else {
-      this.heroesService.agregarHeroe(this.heroe).subscribe((heroe)=>{
-        this.router.navigate(['/heroes/editar',heroe.id])
-        this.openSnackBar(`se ha agregado el heroe ${this.heroe.alter_ego}`)
-      })
+      this.heroe.id = 'heroe-'+this.name?.nativeElement.value
+      this.heroesService.agregarHeroe(this.heroe)
+      this.openSnackBar(`se ha agregado el heroe ${this.heroe.alter_ego}`)
     }
-    
-    
   }
 
   openSnackBar( mensaje: string) {
@@ -65,7 +64,15 @@ export class AgregarComponent implements OnInit{
     private ActivatedRoute:ActivatedRoute,
     private router:Router,
     private _snackBar: MatSnackBar,
-    public dialog: MatDialog) {
+    public dialog: MatDialog, 
+    private activateRoute: ActivatedRoute,
+   ) {
+
+    this.activateRoute.params.subscribe(({id}) =>{
+      this.heroesService.getHeroesPorId(id)
+      this.heroe = this.heroesService.getHeroesPorIdData(id)
+    })
+  
   }
   ngOnInit(): void {
 
@@ -80,8 +87,9 @@ export class AgregarComponent implements OnInit{
       this.ActivatedRoute.params.pipe(
         // switchMap Te permite añadir un evento o secuencia de eventos al inicio de flujo de datos. Por ejemplo, 
         //si quieres que tu flujo de datos, sea el que sea, empiece con el valor cero, podrías usar: startWith(0).
-      switchMap(({id}) => this.heroesService.getHeroesPorId(id))
-      ).subscribe(heroe => this.heroe = heroe)
+      switchMap(({id}) => 
+      this.heroesService.getHeroesPorId(id))
+      )
     }
   
     // console.log(this.heroe );
@@ -95,17 +103,27 @@ export class AgregarComponent implements OnInit{
         data: this.heroe
       })
 
+      console.log(this.heroe.id, heroe.id);
+      
       dialog.afterClosed().subscribe((result)=> {
-        console.log(result);
-        if (result) {
-          this.heroesService.borrarHeroe(heroe.id+'').subscribe((heroeEliminado)=>{
+        //   console.log(result);
+           if (result) {
+          
+            // .subscribe((heroeEliminado)=>{
+            
+            
+            this.heroesService.borrarHeroe(heroe.id+'')
+                
+            
+                //  
+            
             this.router.navigate(['/heroes/listado']);
-            console.log(heroeEliminado)
-          }
-          ) 
-        }
-      }
-      )
+              // console.log(heroeEliminado)
+      
+           }
+      }) 
+      // }
+      // )
 
    
   }

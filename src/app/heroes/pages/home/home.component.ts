@@ -21,7 +21,7 @@ export class HomeComponent {
   }
 
 
-  logout(){
-    this.router.navigate(['./auth'])
-  }
+  // logout(){
+  //   this.router.navigate(['./auth'])
+  // }
 }

@@ -4,37 +4,255 @@ import { Observable } from 'rxjs';
 import { DataHeroes } from '../interfaces/heroes.interface';
 import { environment } from '../../../environments/environment.prod';
 
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root'  //sssssssssssssssssssssssssssssss
 })
 export class HeroesService {
+
+   heroes = [
+    {
+      id: "dc-batman",
+      superhero: "Batman 01",
+      publisher: "DC Comics",
+      alter_ego: "Bruce Wayne",
+      first_appearance: "Detective Comics #27",
+      characters: "Bruce Wayne"
+    },
+   
+    {
+      id: "dc-flash",
+      superhero: "Flash",
+      publisher: "DC Comics",
+      alter_ego: "Jay Garrick",
+      first_appearance: "Flash Comics #1",
+      characters: "Jay Garrick, Barry Allen, Wally West, Bart Allen"
+    },
+    {
+      id: "dc-green",
+      superhero: "Green Lantern",
+      publisher: "DC Comics",
+      alter_ego: "Alan Scott",
+      first_appearance: "All-American Comics #16",
+      characters: "Alan Scott, Hal Jordan, Guy Gardner, John Stewart, Kyle Raynor, Jade, Sinestro, Simon Baz"
+    },
+    {
+      id: "dc-arrow",
+      superhero: "Green Arrow",
+      publisher: "DC Comics",
+      alter_ego: "Oliver Queen",
+    first_appearance: "More Fun Comics #73",
+      characters: "Oliver Queen"
+    },
+    {
+      id: "dc-wonder",
+      superhero: "Wonder Woman",
+      publisher: "DC Comics",
+      alter_ego: "Princess Diana",
+      first_appearance: "All Star Comics #8",
+      characters: "Princess Diana"
+    },
+    {
+      id: "dc-martian",
+      superhero: "Martian Manhunter",
+      publisher: "DC Comics",
+      alter_ego: "J\"onn J\"onzz",
+      first_appearance: "Detective Comics #225",
+      characters: "Martian Manhunter"
+    },
+    {
+      id: "dc-robin",
+      superhero: "Robin/Nightwing",
+      publisher: "DC Comics",
+      alter_ego: "Dick Grayson",
+      first_appearance: "Detective Comics #38",
+      characters: "Dick Grayson"
+    },
+    {
+      id: "dc-blue",
+      superhero: "Blue Beetle",
+      publisher: "DC Comics",
+      alter_ego: "Dan Garret",
+      first_appearance: "Mystery Men Comics #1",
+      characters: "Dan Garret, Ted Kord, Jaime Reyes"
+    },
+    {
+      id: "dc-black",
+      superhero: "Black Canary",
+      publisher: "DC Comics",
+      alter_ego: "Dinah Drake",
+      first_appearance: "Flash Comics #86",
+      characters: "Dinah Drake, Dinah Lance"
+    },
+    {
+      id: "marvel-spider",
+      superhero: "Spider Man",
+      publisher: "Marvel Comics",
+      alter_ego: "Peter Parker",
+      first_appearance: "Amazing Fantasy #15",
+      characters: "Peter Parker"
+    },
+    {
+      id: "marvel-captain",
+      superhero: "Captain America",
+      publisher: "Marvel Comics",
+      alter_ego: "Steve Rogers",
+      first_appearance: "Captain America Comics #1",
+      characters: "Steve Rogers"
+    },
+    {
+      id: "marvel-iron",
+      superhero: "Iron Man",
+      publisher: "Marvel Comics",
+      alter_ego: "Tony Stark",
+      first_appearance: "Tales of Suspense #39",
+      characters: "Tony Stark"
+    },
+    {
+      id: "marvel-thor",
+      superhero: "Thor",
+      publisher: "Marvel Comics",
+      alter_ego: "Thor Odinson",
+      first_appearance: "Journey into Myster #83",
+      characters: "Thor Odinson"
+    },
+    {
+      id: "marvel-hulk",
+      superhero: "Hulk",
+      publisher: "Marvel Comics",
+      alter_ego: "Bruce Banner",
+      first_appearance: "The Incredible Hulk #1",
+      characters: "Bruce Banner"
+    },
+    {
+      id: "marvel-wolverine",
+      superhero: "Wolverine",
+      publisher: "Marvel Comics",
+      alter_ego: "James Howlett",
+      first_appearance: "The Incredible Hulk #180",
+      characters: "James Howlett"
+    },
+    {
+      id: "marvel-daredevil",
+      superhero: "Daredevil",
+      publisher: "Marvel Comics",
+      alter_ego: "Matthew Michael Murdock",
+      first_appearance: "Daredevil #1",
+      characters: "Matthew Michael Murdock"
+    },
+    {
+      id: "marvel-hawkeye",
+      superhero: "Hawkeye",
+      publisher: "Marvel Comics",
+      alter_ego: "Clinton Francis Barton",
+      first_appearance: "Tales of Suspense #57",
+      characters: "Clinton Francis Barton"
+    },
+    {
+      id: "marvel-cyclops",
+      superhero: "Cyclops",
+      publisher: "Marvel Comics",
+      alter_ego: "Scott Summers",
+      first_appearance: "X-Men #1",
+      characters: "Scott Summers"
+    },
+    {
+      id: "marvel-silver",
+      superhero: "Silver Surfer",
+      publisher: "Marvel Comics",
+      alter_ego: "Norrin Radd",
+      first_appearance: "The Fantastic Four #48",
+      characters: "Norrin Radd"
+    }
+  ]
 
   private baseUrl: string = environment.baseUrl;
 
   constructor(private http: HttpClient) { }
 
-  getHeroes():Observable<DataHeroes[]>{
-    return this.http.get<DataHeroes[]>(`${this.baseUrl}/heroes`)
+  getHeroes(): any{
+    
+    return this.heroes
   }
+  // getHeroes():Observable<DataHeroes[]>{
+  //   return this.http.get<DataHeroes[]>(`${this.baseUrl}/heroes`)
+  // }
 
-  getHeroesPorId(personaje: string):Observable<DataHeroes>{
-    return this.http.get<DataHeroes>(`${this.baseUrl}/heroes/${personaje}`)
+  getHeroesPorId(personaje: string ){
+    console.log(personaje);
+    
+    var heroeFind="";
+    this.heroes.forEach(element => {
+      if (element.id == personaje ) {
+        console.log('se encontro '+ personaje +' ' + element.id);
+        heroeFind = element.id
+      }
+    });
+    
+    return heroeFind;
   }
+// obtener data entera
+  getHeroesPorIdData(personaje: string ){
 
-  getBuscarPorId(personaje: string):Observable<DataHeroes[]>{//?q=a&_limit=6
-    return this.http.get<DataHeroes[]>(`${this.baseUrl}/heroes?q=${personaje}&_limit=6`)
+    var heroeFind!: any;
+    this.heroes.forEach(element => {
+      if (element.id == personaje ) {
+        console.log('se encontro '+ personaje +' ' + element.id);
+        heroeFind = element
+      }
+    });
+    
+    return heroeFind;
   }
+  // getHeroesPorId(personaje: string):Observable<DataHeroes>{
+  //   return this.http.get<DataHeroes>(`${this.baseUrl}/heroes/${personaje}`)
+  // }
 
-  agregarHeroe (heroe: DataHeroes):Observable<DataHeroes> {
-    return this.http.post<DataHeroes>(`${this.baseUrl}/heroes`, heroe)
+  getBuscarPorId(personaje: string){//?q=a&_limit=6
+    var heroeFind: any []= [];
+    this.heroes.forEach(element => {
+      if (element.id?.includes(personaje)) {
+        heroeFind.push(element)
+        console.log(heroeFind);
+        
+      }else {
+        console.log('Na nay de la chjingada');
+        
+      }
+    });
+    return heroeFind
   }
+  // getBuscarPorId(personaje: string):Observable<DataHeroes[]>{//?q=a&_limit=6
+  //   return this.http.get<DataHeroes[]>(`${this.baseUrl}/heroes?q=${personaje}&_limit=6`)
+  // }
+
+
   
-  actualizarHeroe (heroe: DataHeroes):Observable<DataHeroes> {
-    return this.http.put<DataHeroes>(`${this.baseUrl}/heroes/${heroe.id}`, heroe)
+  actualizarHeroe (heroe: any) {
+    console.log(heroe);
+    
+    return this.getHeroesPorIdData(heroe.id)
   }
+  // actualizarHeroe (heroe: DataHeroes):Observable<DataHeroes> {
+  //   return this.http.put<DataHeroes>(`${this.baseUrl}/heroes/${heroe.id}`, heroe)
+  // }
 
-  borrarHeroe (id: string):Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/heroes/${id}`)
+  agregarHeroe (heroe: any) {
+    return this.heroes.push(heroe)
+  }
+  // agregarHeroe (heroe: DataHeroes):Observable<DataHeroes> {
+  //   return this.http.post<DataHeroes>(`${this.baseUrl}/heroes`, heroe)
+  // }
+  borrarHeroe (id: string) {
+    var heroeFind2s: string = "";
+
+    for (const [i, element ] of  this.heroes.entries()) {
+      if (element.id == id ) {
+        this.heroes.splice(i, 1);
+      heroeFind2s = element.id
+      }
+    }
+    return heroeFind2s
   }
   
 }

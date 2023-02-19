@@ -1,0 +1,24 @@
+
+
+
+.info{
+    height: 165px;
+}
+
+/* .btn {
+    margin-top: 100%;
+} */
+
+
+.personaje:hover {
+    transform: scale(1.05);
+  
+}
+.personaje {
+    transition: all .5s ease;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    height: 600px;
+
+    z-index: 99999;
+}

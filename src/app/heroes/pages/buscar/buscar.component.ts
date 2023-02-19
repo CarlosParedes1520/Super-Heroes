@@ -12,16 +12,19 @@ export class BuscarComponent {
 
   termino: string = '';
   heroes: DataHeroes[] = [];
+  heroes2: string[] = [];
 
   heroeSeleccionado!: DataHeroes | undefined;
-   heroeSeleccionado2!: DataHeroes ;
+  //  heroeSeleccionado2!: DataHeroes ;
   constructor(private heroesService: HeroesService) {
 
   }
 
-  buscandoFiltro(){
+  buscandoFiltro(){// key up
+    console.log(this.termino);
+    
     // this.heroesService.getHeroes().subscribe((heroe)=> this.heroes = heroe)
-    this.heroesService.getBuscarPorId(this.termino.trim()).subscribe((heroe)=> this.heroes = heroe)
+   this.heroes = this.heroesService.getBuscarPorId(this.termino.trim())
   }
 
   opcionSeleccionada(event: MatAutocompleteSelectedEvent){
@@ -29,10 +32,10 @@ export class BuscarComponent {
     
     if (heroe) {
       this.heroeSeleccionado = heroe
-      this.heroeSeleccionado2 = heroe
+      // this.heroeSeleccionado2 = heroe
       this.termino = heroe.superhero
       console.log(this.heroeSeleccionado);
-      this.heroesService.getHeroesPorId(heroe.id).subscribe((personaje)=> this.heroeSeleccionado=personaje)
+      this.heroesService.getHeroesPorId(heroe.id)
     }else {
       this.heroeSeleccionado = undefined
       return;
