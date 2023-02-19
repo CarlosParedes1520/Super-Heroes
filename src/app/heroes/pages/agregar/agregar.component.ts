@@ -23,7 +23,7 @@ export class AgregarComponent implements OnInit{
     first_appearance: '',
     publisher: Publisher.DCComics,
     alt_img: ''
-  }
+  } 
 
 
   publishers = [
@@ -42,6 +42,8 @@ export class AgregarComponent implements OnInit{
       return;
     }
 
+
+
     if (this.heroe.id) {
       this.heroesService.actualizarHeroe(this.heroe)
       this.heroesService.getHeroes();
@@ -51,6 +53,8 @@ export class AgregarComponent implements OnInit{
       this.heroesService.agregarHeroe(this.heroe)
       this.openSnackBar(`se ha agregado el heroe ${this.heroe.alter_ego}`)
     }
+
+   
   }
 
   openSnackBar( mensaje: string) {
@@ -69,8 +73,12 @@ export class AgregarComponent implements OnInit{
    ) {
 
     this.activateRoute.params.subscribe(({id}) =>{
-      this.heroesService.getHeroesPorId(id)
-      this.heroe = this.heroesService.getHeroesPorIdData(id)
+
+      if (id) {
+          this.heroesService.getHeroesPorId(id)
+          this.heroe = this.heroesService.getHeroesPorIdData(id)
+      }
+     
     })
   
   }
