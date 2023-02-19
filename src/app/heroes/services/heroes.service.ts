@@ -1,12 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { DataHeroes } from '../interfaces/heroes.interface';
-import { environment } from '../../../environments/environment.prod';
-
 
 @Injectable({
-  providedIn: 'root'  //sssssssssssssssssssssssssssssss
+  providedIn: 'root'  
 })
 export class HeroesService {
 
@@ -26,7 +22,7 @@ export class HeroesService {
       publisher: "DC Comics",
       alter_ego: "Jay Garrick",
       first_appearance: "Flash Comics #1",
-      characters: "Jay Garrick, Barry Allen, Wally West, Bart Allen"
+      characters: "Jay Garrick, Barry Allen, Wally West"
     },
     {
       id: "dc-green",
@@ -34,7 +30,7 @@ export class HeroesService {
       publisher: "DC Comics",
       alter_ego: "Alan Scott",
       first_appearance: "All-American Comics #16",
-      characters: "Alan Scott, Hal Jordan, Guy Gardner, John Stewart, Kyle Raynor, Jade, Sinestro, Simon Baz"
+      characters: "Alan Scott, Hal Jordan, Guy Gardner"
     },
     {
       id: "dc-arrow",
@@ -166,7 +162,7 @@ export class HeroesService {
     }
   ]
 
-  private baseUrl: string = environment.baseUrl;
+  
 
   constructor(private http: HttpClient) { }
 
@@ -174,10 +170,7 @@ export class HeroesService {
     
     return this.heroes
   }
-  // getHeroes():Observable<DataHeroes[]>{
-  //   return this.http.get<DataHeroes[]>(`${this.baseUrl}/heroes`)
-  // }
-
+ 
   getHeroesPorId(personaje: string ){
     console.log(personaje);
     
@@ -204,10 +197,7 @@ export class HeroesService {
     
     return heroeFind;
   }
-  // getHeroesPorId(personaje: string):Observable<DataHeroes>{
-  //   return this.http.get<DataHeroes>(`${this.baseUrl}/heroes/${personaje}`)
-  // }
-
+ 
   getBuscarPorId(personaje: string){//?q=a&_limit=6
     var heroeFind: any []= [];
     this.heroes.forEach(element => {
@@ -222,10 +212,6 @@ export class HeroesService {
     });
     return heroeFind
   }
-  // getBuscarPorId(personaje: string):Observable<DataHeroes[]>{//?q=a&_limit=6
-  //   return this.http.get<DataHeroes[]>(`${this.baseUrl}/heroes?q=${personaje}&_limit=6`)
-  // }
-
 
   
   actualizarHeroe (heroe: any) {
@@ -233,16 +219,12 @@ export class HeroesService {
     
     return this.getHeroesPorIdData(heroe.id)
   }
-  // actualizarHeroe (heroe: DataHeroes):Observable<DataHeroes> {
-  //   return this.http.put<DataHeroes>(`${this.baseUrl}/heroes/${heroe.id}`, heroe)
-  // }
+
 
   agregarHeroe (heroe: any) {
     return this.heroes.push(heroe)
   }
-  // agregarHeroe (heroe: DataHeroes):Observable<DataHeroes> {
-  //   return this.http.post<DataHeroes>(`${this.baseUrl}/heroes`, heroe)
-  // }
+
   borrarHeroe (id: string) {
     var heroeFind2s: string = "";
 

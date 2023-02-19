@@ -22,3 +22,14 @@
 
     z-index: 99999;
 }
+
+
+@media screen and (max-width:600px) {
+    .personaje{
+      width: 80%;
+      height: auto;
+      /* justify-content: center!important; */
+      margin-left: auto;
+      margin-right: auto;
+    }
+}
